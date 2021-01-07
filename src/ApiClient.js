@@ -448,8 +448,8 @@ class ApiClient {
             }
         }
 
-        request.end((error, response) => {
-            if (callback) {
+        if (callback) {
+            request.end((error, response) => {
                 var data = null;
                 if (!error) {
                     try {
@@ -463,10 +463,11 @@ class ApiClient {
                 }
 
                 callback(error, data, response);
-            }
-        });
-
-        return request;
+            });
+        } else {
+            return request;
+        }
+        
     }
 
     /**
